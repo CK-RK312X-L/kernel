@@ -1,0 +1,1404 @@
+/*
+ * Copyright (C) 2014 ROCKCHIP, Inc.
+ * Licensed under GPLv2 or later.
+ * arch/arm/boot/dts/lcd-b080xan03.0-mipi.dtsi
+ * author: chenyf@rock-chips.com
+ * create date: 2014-09-11
+ * lcd model: b080xan03.0
+ * resolution: 768 X 1024
+ * mipi channel: single
+ */
+
+/ {
+		/* about mipi */
+		disp_mipi_init: mipi_dsi_init{
+					compatible = "rockchip,mipi_dsi_init";
+					rockchip,screen_init	= <1>;
+					rockchip,dsi_lane		= <4>;
+					rockchip,dsi_hs_clk		= <628>;
+					rockchip,mipi_dsi_num	= <1>;
+		};
+		disp_mipi_power_ctr: mipi_power_ctr {
+					compatible = "rockchip,mipi_power_ctr";
+					mipi_lcd_rst:mipi_lcd_rst{
+							compatible = "rockchip,lcd_rst";
+							rockchip,gpios = <&gpio0 GPIO_D0 GPIO_ACTIVE_HIGH>;
+							rockchip,delay = <20>;
+					};
+					mipi_lcd_en:mipi_lcd_en {
+							compatible = "rockchip,lcd_en";
+							rockchip,gpios = <&gpio1 GPIO_B4 GPIO_ACTIVE_HIGH>;
+							rockchip,delay = <100>;
+					};
+		};
+		disp_mipi_init_cmds: screen-on-cmds {
+					compatible = "rockchip,screen-on-cmds";
+					rockchip,cmd_debug = <1>;
+					
+					#if 1
+					rockchip,on-cmds1 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0xe0 0x00>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds2 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0xe1 0x93>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds3 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0xe2 0x65>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds4 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0xe3 0xf8>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds5 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0xE0 0x04>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds6 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0xE0 0x04>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds7 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x2D 0x03>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds8 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0xE0 0x01>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds9 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x00 0x00>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds10 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x01 0x5C>;//10
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds11 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x03 0x00>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds12 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x04 0x68>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds13 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x17 0x00>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds14 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x18 0xD7>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds15 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x19 0x01>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds16 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x1A 0x00>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds17 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x1B 0xD7>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds18 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x1C 0x01>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds19 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x1F 0x6B>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds20 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x20 0x29>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds21 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x21 0x29>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds22 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x22 0x7E>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds23 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x37 0x59>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds24 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x35 0x28>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds25 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x38 0x05>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds26 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x39 0x08>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds27 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							 rockchip,cmd = <0x15 0x3A 0x12>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds28 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x3C 0x7E>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds29 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x3D 0xFF>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds30 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x3E 0xFF>;//30
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds31 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x3F 0x7F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds32 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x40 0x06>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds33 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x41 0xA0>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds34 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x43 0x1E>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds35 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x44 0x0B>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds36 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x55 0x01>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds37 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x56 0x01>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds38 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x57 0x69>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds39 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x58 0x0A>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds40 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x59 0x2A>;//40
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds41 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x5A 0x29>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds42 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x5B 0x15>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds43 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x5C 0x16>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds44 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x5D 0x64>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds45 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x5E 0x50>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds46 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x5F 0x43>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds47 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x60 0x38>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds48 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x61 0x36>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds49 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x62 0x29>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds50 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x63 0x2F>;//50
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds51 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x64 0x1B>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds52 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x65 0x35>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds53 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x66 0x35>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds54 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x67 0x35>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds55 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x68 0x53>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds56 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x69 0x41>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds57{
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x6A 0x47>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds58 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x6B 0x38>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds59 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x6C 0x34>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds60 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x6D 0x27>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds61 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x6E 0x19>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds62 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x6F 0x12>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds63 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x70 0x64>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds64 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x71 0x50>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds65 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x72 0x43>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds66 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x73 0x38>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds67 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x74 0x36>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds68 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x75 0x29>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds69 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x76 0x2F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds70 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x77 0x1B>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds71 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x78 0x35>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds72 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							 rockchip,cmd = <0x15 0x79 0x35>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds73 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x7A 0x35>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds74 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x7B 0x53>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds75 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x7C 0x41>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds76 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x7D 0x47>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds77 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x7E 0x38>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds78 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x7F 0x34>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds79 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x80 0x27>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds80 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x81 0x19>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds81 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x82 0x12>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds82 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0xE0 0x02>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds83 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x00 0x53>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds84 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x01 0x5F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds85 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x02 0x5F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds86 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x03 0x5F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds87 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x04 0x5F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds88 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x05 0x51>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds89 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x06 0x77>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds90 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x07 0x57>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds91 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x08 0x4F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds92 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x09 0x5F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds93 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x0A 0x4D>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds94 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x0B 0x4B>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds95 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x0C 0x5F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds96 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							 rockchip,cmd = <0x15 0x0D 0x49>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds97 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x0E 0x47>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds98 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x0F 0x45>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds99 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x10 0x41>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds100 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x11 0x5F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds101 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x12 0x5F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds102 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x13 0x5F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds103 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x14 0x5F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds104 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x15 0x5F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds105 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x16 0x52>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds106 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x17 0x5F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds107 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x18 0x5F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds108 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x19 0x5F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds109 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x1A 0x5F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds110 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x1B 0x50>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds111 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x1C 0x77>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds112 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x1D 0x57>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds113 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x1E 0x4E>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds114 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x1F 0x5F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds115 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x20 0x4C>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds116 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x21 0x4A>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds117 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x22 0x5F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds118 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x23 0x48>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds119 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x24 0x46>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds120 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x25 0x44>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds121 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x26 0x40>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds122 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x27 0x5F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds123 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x28 0x5F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds124 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x29 0x5F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds125 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x2A 0x5F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds126 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x2B 0x5F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds127 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							 rockchip,cmd = <0x15 0x2C 0x12>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds128 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x2D 0x1F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds129 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x2E 0x1F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds130 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x2F 0x1F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds131 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x30 0x1F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds132 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x31 0x00>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds133 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x32 0x17>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds134 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x33 0x17>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds135 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x34 0x04>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds136 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x35 0x1F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds137 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x36 0x06>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds138 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x37 0x08>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds139 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x38 0x1F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds140 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x39 0x0A>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds141 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x3A 0x0C>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds142 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x3B 0x0E>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds143 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x3C 0x10>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds144 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x3D 0x1F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds145 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x3E 0x1F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds146 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x3F 0x1F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds147 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x40 0x1F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds148 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x41 0x1F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds149 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x42 0x13>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds150 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x43 0x1F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds151 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x44 0x1F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds152 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x45 0x1F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds153 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x46 0x1F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds154 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x47 0x01>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds155 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x48 0x17>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds156 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x49 0x17>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds157 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x4A 0x05>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds158 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x4B 0x1F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds159 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x4C 0x07>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds160 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x4D 0x09>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds161 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x4E 0x1F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds162 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x4F 0x0B>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds163 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x50 0x0D>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds164 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x51 0x0F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds165 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x52 0x11>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds166 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x53 0x1F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds167 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x54 0x1F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds168 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x55 0x1F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds169 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x56 0x1F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds170 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x57 0x1F>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds171 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x58 0x00>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds172 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x59 0x00>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds173 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x5A 0x00>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds174 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x5B 0x10>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds175 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x5C 0x04>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds176 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x5D 0x40>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds177 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x5E 0x00>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds178 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x5F 0x00>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds179 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x60 0x40>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds180 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x61 0x03>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds181 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x62 0x04>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds182 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x63 0x70>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds183 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x64 0x70>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds184 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x65 0x75>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds185 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x66 0x0B>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds186 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x67 0xB4>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds187 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x68 0x06>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds188 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x69 0x70>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds189 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x6A 0x70>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds190 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x6B 0x04>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds191 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x6C 0x00>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds192 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x6D 0x04>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds193 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x6E 0x00>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds194 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x6F 0x88>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds195 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x70 0x00>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds196 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x71 0x00>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds197 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x72 0x06>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds198 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x73 0x7B>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds199 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x74 0x00>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds200 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x75 0xBC>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds201 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x76 0x00>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds202 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x77 0x05>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds203 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x78 0x2A>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds204 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x79 0x00>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds205 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x7A 0x00>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds206 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x7B 0x00>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds207 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x7C 0x00>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds208 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x7D 0x03>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds209 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x7E 0x7B>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds210 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0xE0 0x04>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds211 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x0E 0x48>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds212 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x2B 0x2B>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds213 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x2E 0x44>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds214 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0xE0 0x00>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds215 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0xE6 0x02>;
+							rockchip,cmd_delay = <0>;
+					};
+					rockchip,on-cmds216 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0xE7 0x06>;
+							rockchip,cmd_delay = <0>;
+					};
+					
+					
+					#endif
+				
+					rockchip,on-cmds221 {
+							compatible = "rockchip,on-cmds";
+							//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x05 0x11>;
+							rockchip,cmd_delay = <120>;
+					};
+				
+					
+						rockchip,on-cmds222 {
+							compatible = "rockchip,on-cmds";
+							//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x05 0x29>;
+							rockchip,cmd_delay = <100>;
+					};
+					
+							rockchip,on-cmds223 {
+					//rockchip,cmd_type = <LPDT>;
+							rockchip,dsi_id = <0>;
+							rockchip,cmd = <0x15 0x35 0x00>;
+							rockchip,cmd_delay = <0>;
+					};
+					
+					
+		};
+
+
+		disp_timings: display-timings {
+                        native-mode = <&timing0>;
+                        compatible = "rockchip,display-timings";
+                        timing0: timing0 {
+				screen-type = <SCREEN_MIPI>;
+				lvds-format = <LVDS_8BIT_1>;
+				out-face    = <OUT_P888>;
+				clock-frequency = <76000000>;
+				hactive = <800>;
+				vactive = <1280>;
+				hback-porch = <60>;
+				hfront-porch = <100>;
+				vback-porch = <15>;
+				vfront-porch = <20>;
+				hsync-len = <3>;
+				vsync-len = <3>;
+
+				/*
+				hactive = <1024>;
+				vactive = <768>;
+				hback-porch = <56>;
+				hfront-porch = <60>;
+				vback-porch = <30>;
+				vfront-porch = <36>;
+				hsync-len = <64>;
+				vsync-len = <14>;
+				*/
+				hsync-active = <0>;
+				vsync-active = <0>;
+				de-active = <0>;
+				pixelclk-active = <0>;
+				swap-rb = <0>;
+				swap-rg = <1>;
+				swap-gb = <0>;
+                     	};
+               };
+};
+

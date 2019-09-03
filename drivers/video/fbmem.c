@@ -493,11 +493,22 @@ static int fb_show_logo_line(struct fb_info *info, int rotate,
 		fb_set_logo(info, logo, logo_new, fb_logo.depth);
 	}
 
+#ifdef CONFIG_LOGO_SKY_UPSIDEDOWN
+	image.dx = (info->var.xres-logo->width*(num_online_cpus())-24);
+	image.dy = (info->var.yres-logo->height);
+	image.width = logo->width;
+	image.height = logo->height;
+#elif defined CONFIG_LOGO_SKY_LOGO_CENTER
+	image.dx = (info->var.xres-logo->width)/2;
+	image.dy = (info->var.yres-logo->height)/2;
+	image.width = logo->width;
+	image.height = logo->height;
+#else
 	image.dx = 0;
 	image.dy = y;
 	image.width = logo->width;
 	image.height = logo->height;
-
+#endif
 	if (rotate) {
 		logo_rotate = kmalloc(logo->width *
 				      logo->height, GFP_KERNEL);
@@ -658,9 +669,12 @@ int fb_prepare_logo(struct fb_info *info, int rotate)
 int fb_show_logo(struct fb_info *info, int rotate)
 {
 	int y;
-
+#ifdef CONFIG_LOGO_SKY_LOGO_ONE//CONFIG_SKY_LOGO_ONE
+        y = fb_show_logo_line(info, rotate, fb_logo.logo, 0,1);
+#else
 	y = fb_show_logo_line(info, rotate, fb_logo.logo, 0,
 			      num_online_cpus());
+#endif
 	y = fb_show_extra_logos(info, y, rotate);
 
 	return y;

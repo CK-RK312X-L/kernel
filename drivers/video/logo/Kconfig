@@ -62,6 +62,18 @@ config LOGO_SUN_CLUT224
 	depends on SPARC
 	default y
 
+config LOGO_SKY_UPSIDEDOWN
+        bool "SKY logo upside down"
+        default n
+
+config LOGO_SKY_LOGO_ONE
+        bool "SKY SHOW ONE logo "
+        default n
+
+config LOGO_SKY_LOGO_CENTER
+        bool "SKY logo show lcd center "
+        default n
+
 config LOGO_SUPERH_MONO
 	bool "Black and white SuperH Linux logo"
 	depends on SUPERH

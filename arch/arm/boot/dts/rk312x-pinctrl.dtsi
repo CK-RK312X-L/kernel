@@ -727,81 +727,98 @@
 			gmac_rxdv:gmac-rxdv {
 				rockchip,pins = <GMAC_RXDV>;
 				rockchip,pull = <VALUE_PULL_DEFAULT>;
+				rockchip,drive = <VALUE_DRV_4MA>;
 			};
-			
+			/*
 			gmac_txclk:gmac-txclk {
 				rockchip,pins = <GMAC_TXCLK>;
 				rockchip,pull = <VALUE_PULL_DEFAULT>;
+				rockchip,drive = <VALUE_DRV_12MA>;
 			};
 			
 			gmac_crs:gmac-crs {
 				rockchip,pins = <GMAC_CRS>;
 				rockchip,pull = <VALUE_PULL_DEFAULT>;
+				rockchip,drive = <VALUE_DRV_12MA>;
 			};
 			
 			gmac_rxclk:gmac-rxclk {
 				rockchip,pins = <GMAC_RXCLK>;
 				rockchip,pull = <VALUE_PULL_DEFAULT>;
+				rockchip,drive = <VALUE_DRV_12MA>;
 			};
-			
+			*/
 			gmac_mdio:gmac-mdio {
 				rockchip,pins = <GMAC_MDIO>;
 				rockchip,pull = <VALUE_PULL_DEFAULT>;
+				rockchip,drive = <VALUE_DRV_4MA>;
 			};
 			
 			gmac_txen:gmac-txen {
 				rockchip,pins = <GMAC_TXEN>;
 				rockchip,pull = <VALUE_PULL_DEFAULT>;
+				rockchip,drive = <VALUE_DRV_4MA>;
 			};
 			
 			gmac_clk:gmac-clk {
 				rockchip,pins = <GMAC_CLK>;
 				rockchip,pull = <VALUE_PULL_DEFAULT>;
+				rockchip,drive = <VALUE_DRV_4MA>;
 			};
 			gmac_rxer:gmac-rxer {
 				rockchip,pins = <GMAC_RXER>;
 				rockchip,pull = <VALUE_PULL_DEFAULT>;
+				rockchip,drive = <VALUE_DRV_4MA>;
 			};
 			
 			gmac_rxd1:gmac-rxd1 {
 				rockchip,pins = <GMAC_RXD1>;
 				rockchip,pull = <VALUE_PULL_DEFAULT>;
+				rockchip,drive = <VALUE_DRV_4MA>;
 			};
 			
 			gmac_rxd0:gmac-rxd0 {
 				rockchip,pins = <GMAC_RXD0>;
 				rockchip,pull = <VALUE_PULL_DEFAULT>;
+				rockchip,drive = <VALUE_DRV_4MA>;
 			};
 			
 			gmac_txd1:gmac-txd1 {
 				rockchip,pins = <GMAC_TXD1>;
 				rockchip,pull = <VALUE_PULL_DEFAULT>;
+				rockchip,drive = <VALUE_DRV_4MA>;
 			};
 			
 			gmac_txd0:gmac-txd0 {
 				rockchip,pins = <GMAC_TXD0>;
 				rockchip,pull = <VALUE_PULL_DEFAULT>;
+				rockchip,drive = <VALUE_DRV_4MA>;
 			};
+			/*
 			gmac_rxd3:gmac-rxd3 {
 				rockchip,pins = <GMAC_RXD3>;
 				rockchip,pull = <VALUE_PULL_DEFAULT>;
+				rockchip,drive = <VALUE_DRV_12MA>;
 			};
 			
 			gmac_rxd2:gmac-rxd2 {
 				rockchip,pins = <GMAC_RXD2>;
 				rockchip,pull = <VALUE_PULL_DEFAULT>;
+				rockchip,drive = <VALUE_DRV_12MA>;
 			};
 			
 			gmac_txd2:gmac-txd2 {
 				rockchip,pins = <GMAC_TXD2>;
 				rockchip,pull = <VALUE_PULL_DEFAULT>;
+				rockchip,drive = <VALUE_DRV_12MA>;
 			};
 			
 			gmac_txd3:gmac-txd3 {
 				rockchip,pins = <GMAC_TXD3>;
 				rockchip,pull = <VALUE_PULL_DEFAULT>;
+				rockchip,drive = <VALUE_DRV_12MA>;
 			};
-			
+			*/
 			gmac_col:gmac-col {
 				rockchip,pins = <GMAC_COL>;
 				rockchip,pull = <VALUE_PULL_DEFAULT>;
@@ -810,6 +827,16 @@
 			gmac_col_gpio:gmac-col-gpio {
 				rockchip,pins = <GPIO2_D0>;
 				rockchip,pull = <VALUE_PULL_DEFAULT>;
+			};
+			
+			host_en:host-en {
+				rockchip,pins = <GPIO2_B3>;
+                                rockchip,pull = <VALUE_PULL_DEFAULT>;
+			};	
+
+			sys_sta:sys-sta {
+				rockchip,pins = <GPIO2_C7>;
+                                rockchip,pull = <VALUE_PULL_DEFAULT>;
 			};
 		
 			gmac_mdc:gmac-mdc {
@@ -823,7 +850,7 @@
 		gpio2_lcdc0 {
 			lcdc0_lcdc:lcdc0-lcdc {
 				rockchip,pins =
-						<LCDC0_DCLK>,
+						//<LCDC0_DCLK>,
 						<LCDC0_DEN>,
 						<LCDC0_HSYNC>,
 						<LCDC0_VSYNC>;

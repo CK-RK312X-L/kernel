@@ -88,6 +88,7 @@
 #define UART_SFE	0x26	/* Shadow FIFO Enable */
 #define UART_RESET		0x01
 
+#define UART_RFL	0x21
 
 //#define BOTH_EMPTY 	(UART_LSR_TEMT | UART_LSR_THRE)
 #define UART_NR	5   //uart port number
@@ -816,6 +817,11 @@ receive_chars(struct uart_rk_port *up, unsigned int *status)
 	unsigned char ch, lsr = *status;
 	int max_count = 256;
 	char flag;
+	if ((up->iir & 0x0f) == 0x0c)
+		max_count = serial_in(up, UART_RFL);
+	else
+		max_count = serial_in(up, UART_RFL) - 2;
+
 
 	do {
 		if (likely(lsr & UART_LSR_DR)){
@@ -882,6 +888,8 @@ ignore_char:
 		lsr = serial_in(up, UART_LSR);
 	} while ((lsr & (UART_LSR_DR | UART_LSR_BI)) && (max_count-- > 0));
 	spin_unlock(&up->port.lock);
+	//tty_flip_buffer_push(tty->port);
+	if ((up->iir & 0x0f) == 0x0c)
 	tty_flip_buffer_push(tty->port);
 	spin_lock(&up->port.lock);
 	*status = lsr;
@@ -1455,7 +1463,7 @@ serial_rk_set_termios(struct uart_port *port, struct ktermios *termios,
 			if (termios->c_cflag & CRTSCTS)
 				fcr |= UART_FCR_R_TRIG_11;
 			else
-				fcr |= UART_FCR_R_TRIG_00;
+				fcr |= UART_FCR_R_TRIG_10;
 		}
 	}
 
