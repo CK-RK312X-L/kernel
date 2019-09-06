@@ -1,0 +1,4 @@
+config LED_CONTROL
+        tristate "led debug tools"
+        help
+                gpio debug tools
