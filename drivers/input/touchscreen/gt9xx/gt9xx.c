@@ -50,6 +50,7 @@
 #include <linux/irq.h>
 #include "gt9xx.h"
 #include <linux/regulator/consumer.h>
+#include <linux/rk_fb.h>
 
 #if GTP_ICS_SLOT_REPORT
     #include <linux/input/mt.h>
@@ -420,6 +421,10 @@ static void gtp_touch_down(struct goodix_ts_data* ts,s32 id,s32 x,s32 y,s32 w)
 	        y = ts->abs_y_max - y;
 	    }
 	}
+{
+
+}
+
 
 #if GTP_ICS_SLOT_REPORT
     input_mt_slot(ts->input_dev, id);
@@ -593,6 +598,8 @@ static void goodix_ts_work_func(struct work_struct *work)
 #endif
 
     GTP_DEBUG_FUNC();
+
+
     ts = container_of(work, struct goodix_ts_data, work);
     if (ts->enter_update)
     {
@@ -1416,15 +1423,15 @@ static s32 gtp_init_panel(struct goodix_ts_data *ts)
     
     GTP_INFO("  <%s>_%d \n", __func__, __LINE__);
    
-    if(m89or101){
+  /*  if(m89or101){
         send_cfg_buf[0] = gtp_dat_8_9;
         cfg_info_len[0] =  CFG_GROUP_LEN(gtp_dat_8_9);
     }
     
-    if (bgt911) {
+    if (1){//bgt911) {
     	send_cfg_buf[0] = gtp_dat_gt11;
 		cfg_info_len[0] =  CFG_GROUP_LEN(gtp_dat_gt11);
-    }
+    }*/
 
     GTP_DEBUG_FUNC();
     GTP_DEBUG("Config Groups\' Lengths: %d, %d, %d, %d, %d, %d", 
@@ -2100,7 +2107,7 @@ static s8 gtp_request_input_dev(struct goodix_ts_data *ts)
     
     ts->tp.tp_resume = goodix_ts_early_resume;
     ts->tp.tp_suspend = goodix_ts_early_suspend;
-    tp_register_fb(&ts->tp);
+   // tp_register_fb(&ts->tp);
 
 #if GTP_WITH_PEN
     gtp_pen_init(ts);
@@ -2597,10 +2604,11 @@ static int goodix_ts_probe(struct i2c_client *client, const struct i2c_device_id
     	dev_err(&client->dev, "no device tree\n");
     	return -EINVAL;
     }
-    if (of_property_read_u32(np, "tp-size", &val)) {
+   /* if (of_property_read_u32(np, "tp-size", &val)) {
     	dev_err(&client->dev, "no max-x defined\n");
     	return -EINVAL;
     }
+	   val=101;
 
     if(val == 89){
         m89or101 = TRUE;
@@ -2609,8 +2617,8 @@ static int goodix_ts_probe(struct i2c_client *client, const struct i2c_device_id
         mGtp_Y_Reverse = TRUE;
     }else if(val == 101){
         m89or101 = FALSE;
-        mGtpChange_X2Y = TRUE;
-        mGtp_X_Reverse = TRUE;
+        mGtpChange_X2Y = FALSE;
+        mGtp_X_Reverse = FALSE;
         mGtp_Y_Reverse = FALSE;
     } else if (val == 911) {
     	m89or101 = FALSE;
@@ -2619,12 +2627,30 @@ static int goodix_ts_probe(struct i2c_client *client, const struct i2c_device_id
         mGtp_X_Reverse = FALSE;
         mGtp_Y_Reverse = TRUE;
     }
+    */
+/*
+   if (of_property_read_u32(np, "x_revert_en", &val)) {
+    	dev_err(&client->dev, "no x_revert_en defined\n");
+    	return -EINVAL;
+    }
+   mGtp_X_Reverse = val;
+   if (of_property_read_u32(np, "y_revert_en", &val)) {
+    	dev_err(&client->dev, "no y_revert_en defined\n");
+    	return -EINVAL;
+    }
+   mGtp_Y_Reverse=val;
+   if (of_property_read_u32(np, "xy_swap_en", &val)) {
+    	dev_err(&client->dev, "no xy_swap_en defined\n");
+    	return -EINVAL;
+    }
 
-    ts->irq_pin = of_get_named_gpio_flags(np, "touch-gpio", 0, (enum of_gpio_flags *)(&ts->irq_flags));
-    ts->rst_pin = of_get_named_gpio_flags(np, "reset-gpio", 0, &rst_flags);
-    ts->pwr_pin = of_get_named_gpio_flags(np, "power-gpio", 0, &pwr_flags);
+   mGtpChange_X2Y = val;
+*/
+    ts->irq_pin = of_get_named_gpio_flags(np, "irq_gpios", 0, (enum of_gpio_flags *)(&ts->irq_flags));
+    ts->rst_pin = of_get_named_gpio_flags(np, "reset_gpios", 0, &rst_flags);
+   // ts->pwr_pin = of_get_named_gpio_flags(np, "power-gpio", 0, &pwr_flags);
     //ts->tp_select_pin = of_get_named_gpio_flags(np, "tp-select-gpio", 0, &tp_select_flags);
-    if (of_property_read_u32(np, "max-x", &val)) {
+   /* if (of_property_read_u32(np, "max-x", &val)) {
     	dev_err(&client->dev, "no max-x defined\n");
     	return -EINVAL;
     }
@@ -2632,7 +2658,7 @@ static int goodix_ts_probe(struct i2c_client *client, const struct i2c_device_id
     if (of_property_read_u32(np, "max-y", &val)) {
     	dev_err(&client->dev, "no max-y defined\n");
     	return -EINVAL;
-    }
+    }*/
     //ts->abs_y_max = val;
     ts->pendown =PEN_RELEASE;
     ts->client = client;
@@ -2727,6 +2753,7 @@ static int goodix_ts_probe(struct i2c_client *client, const struct i2c_device_id
         GTP_ERROR("Create update thread error.");
     }
 #endif
+
 
     ret = gtp_request_input_dev(ts);
     if (ret < 0)
