@@ -18,6 +18,24 @@
 #include <linux/fcntl.h>
 #include <linux/input.h>
 #include <asm/uaccess.h>
+#include <linux/module.h>
+#include <linux/kernel.h>
+#include <linux/errno.h>
+#include <linux/string.h>
+#include <linux/mm.h>
+#include <linux/slab.h>
+#include <linux/delay.h>
+#include <linux/device.h>
+#include <linux/init.h>
+#include <linux/dma-mapping.h>
+#include <linux/interrupt.h>
+#include <linux/platform_device.h>
+#include <linux/clk.h>
+#include <linux/uaccess.h>
+
+#include <linux/of_gpio.h>
+#include <linux/rk_fb.h>
+
 
 #include <linux/wakelock.h>
 //#include "skyworth.h"
@@ -54,9 +72,13 @@ struct led_control_platform_data {
 	int sys_sta_gpio_status;
 	int WIFI_PWR_gpio;
 	int WIFI_PWR_gpio_status;
+	int DVP_CTL_gpio;
+	int DVP_CTL_gpio_status;
 	struct timer_list mytimer;
 	struct delayed_work mywork;
 };
+
+struct led_control_platform_data *mpdata;
 
 struct gpio_state {
 	struct mutex		mutex; /* mutual excl. when accessing chip */
@@ -132,9 +154,68 @@ static struct led_control_platform_data *led_control_parse_dt(struct device *dev
             		pdata->WIFI_PWR_gpio_status = (flags == GPIO_ACTIVE_HIGH)? 1:0;
         	}
     	}
+	if (of_find_property(dev->of_node, "DVP_CTL_gpio", NULL)) 
+	{
+        	gpio = of_get_named_gpio_flags(dev->of_node, "DVP_CTL_gpio", 0, &flags);
+        	if (gpio_is_valid(gpio))
+		{
+            		pdata->DVP_CTL_gpio = gpio;
+            		pdata->DVP_CTL_gpio_status = (flags == GPIO_ACTIVE_HIGH)? 1:0;
+        	}
+    	}
 	return pdata;
 }
 #endif
+
+int led_early_suspend()
+{
+        gpio_direction_output(mpdata->LED_CTL_gpio,!mpdata->LED_CTL_gpio_status);
+        gpio_set_value(mpdata->LED_CTL_gpio,!mpdata->LED_CTL_gpio_status);
+        printk("%s\n",__FUNCTION__);
+        return 0;
+}
+
+int led_early_resume()
+{
+        gpio_direction_output(mpdata->LED_CTL_gpio,mpdata->LED_CTL_gpio_status);
+        gpio_set_value(mpdata->LED_CTL_gpio,mpdata->LED_CTL_gpio_status);
+        printk("%s\n",__FUNCTION__);
+        return 0;
+}
+
+static int rockchip_led_fb_event_notify(struct notifier_block *self,
+                                           unsigned long action,
+                                           void *data)
+{
+        struct fb_event *event = data;
+        int blank_mode = *((int *)event->data);
+
+        if (action == FB_EARLY_EVENT_BLANK) {
+                switch (blank_mode) {
+                case FB_BLANK_UNBLANK:
+                        break;
+                default:
+			printk("lcdc suspend\n");
+			led_early_suspend();
+                        break;
+                }
+        } else if (action == FB_EVENT_BLANK) {
+                switch (blank_mode) {
+                case FB_BLANK_UNBLANK:
+			printk("lcdc resume\n");
+			led_early_resume();
+                        break;
+                default:
+                        break;
+                }
+        }
+
+        return NOTIFY_OK;
+}
+
+static struct notifier_block rockchip_led_fb_notifier = {
+        .notifier_call = rockchip_led_fb_event_notify,
+};
 
 static void gpio_timer(struct work_struct *work)
 {
@@ -220,6 +301,17 @@ static int led_control_setup_gpio(struct led_control_platform_data *pdata)
 			gpio_set_value(pdata->WIFI_PWR_gpio,pdata->WIFI_PWR_gpio_status);
 		}
         }
+	if (gpio_is_valid(pdata->DVP_CTL_gpio))
+	{
+        	int ret = gpio_request(pdata->DVP_CTL_gpio, "DVP_CTL_gpio");
+		 if (ret) 
+            		printk("Failed_control to get %s gpio.\n", pdata->DVP_CTL_gpio);
+        	else
+		{
+			gpio_direction_output(pdata->DVP_CTL_gpio,pdata->DVP_CTL_gpio_status);
+			gpio_set_value(pdata->DVP_CTL_gpio,pdata->DVP_CTL_gpio_status);
+		}
+        }
 }
 
 static int  led_control_probe(struct platform_device *pdev)
@@ -243,7 +335,9 @@ static int  led_control_probe(struct platform_device *pdev)
                 return -ENOMEM;
         }
 
+	mpdata = pdata;
 	led_control_setup_gpio(pdata);
+        fb_register_client(&rockchip_led_fb_notifier);
 
 	//wake_lock_init(&usb_wakelock, WAKE_LOCK_SUSPEND, "usb_detect_3G");      
         //wake_lock_timeout(&usb_wakelock, 2000000000000000* HZ);
@@ -260,12 +354,18 @@ err:
 
 int led_control_suspend(struct platform_device *pdev,  pm_message_t state)
 {
+        struct led_control_platform_data *pdata = platform_get_drvdata(pdev);
+	gpio_direction_output(pdata->LED_CTL_gpio,!pdata->LED_CTL_gpio_status);
+        gpio_set_value(pdata->LED_CTL_gpio,!pdata->LED_CTL_gpio_status);
 	printk("%s\n",__FUNCTION__);
 	return 0;	
 }
 
 int led_control_resume(struct platform_device *pdev)
 {
+	struct led_control_platform_data *pdata = platform_get_drvdata(pdev);
+	gpio_direction_output(pdata->LED_CTL_gpio,pdata->LED_CTL_gpio_status);
+        gpio_set_value(pdata->LED_CTL_gpio,pdata->LED_CTL_gpio_status);
 	printk("%s\n",__FUNCTION__);
 	return 0;
 }
