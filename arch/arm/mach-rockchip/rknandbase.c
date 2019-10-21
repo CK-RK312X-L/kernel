@@ -372,5 +372,6 @@ static int __init rknand_part_init(void)
 	return ret;
 }
 
-module_init(rknand_part_init);
+//module_init(rknand_part_init);
+fs_initcall(rknand_part_init);
 module_exit(rknand_part_exit);

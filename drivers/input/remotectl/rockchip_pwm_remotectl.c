@@ -428,7 +428,7 @@ static int rk_pwm_probe(struct platform_device *pdev)
 		return -ENOMEM;
 	}
 	input = input_allocate_device();
-	input->name = pdev->name;
+	input->name = "remotectl";//pdev->name;
 	input->phys = "gpio-keys/remotectl";
 	input->dev.parent = &pdev->dev;
 	input->id.bustype = BUS_HOST;

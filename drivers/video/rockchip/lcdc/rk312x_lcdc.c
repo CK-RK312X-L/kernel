@@ -2574,11 +2574,11 @@ static struct rk_lcdc_drv_ops lcdc_drv_ops = {
 	.get_dsp_bcsh_hue = rk312x_lcdc_get_bcsh_hue,
 	.get_dsp_bcsh_bcs = rk312x_lcdc_get_bcsh_bcs,
 	.open_bcsh = rk312x_lcdc_open_bcsh,
-	.set_screen_scaler = rk312x_lcdc_set_scaler,
+	.set_screen_scaler = NULL,//rk312x_lcdc_set_scaler,
 	.set_dsp_lut = rk312x_lcdc_set_lut,
 	.set_hwc_lut = rk312x_lcdc_set_hwc_lut,
 	.set_irq_to_cpu = rk312x_lcdc_set_irq_to_cpu,
-	.dsp_black = rk312x_lcdc_dsp_black,
+	.dsp_black = NULL,//rk312x_lcdc_dsp_black,
 	.mmu_en = rk312x_lcdc_mmu_en,
 };
 #if 0

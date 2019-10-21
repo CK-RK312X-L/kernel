@@ -26,6 +26,7 @@
 #define RK29_CAM_SENSOR_GC0328  gc0328
 #define RK29_CAM_SENSOR_GC0329  gc0329
 #define RK29_CAM_SENSOR_GC2035	gc2035
+#define RK29_CAM_SENSOR_GC2155	gc2155
 #define RK29_CAM_SENSOR_SIV120B  siv120b
 #define RK29_CAM_SENSOR_SIV121D  siv121d
 #define RK29_CAM_SENSOR_SID130B  sid130B
@@ -68,6 +69,7 @@
 #define RK29_CAM_SENSOR_NAME_GC0308  "gc0308"
 #define RK29_CAM_SENSOR_NAME_GC0309  "gc0309"
 #define RK29_CAM_SENSOR_NAME_GC2015  "gc2015"
+#define RK29_CAM_SENSOR_NAME_GC2155  "gc2155"
 #define RK29_CAM_SENSOR_NAME_GC0328  "gc0328"
 #define RK29_CAM_SENSOR_NAME_GC2035  "gc2035"
 #define RK29_CAM_SENSOR_NAME_GC0329  "gc0329"
@@ -147,6 +149,7 @@
 #define s5k5ca_FULL_RESOLUTION      0x300000            // 3 megapixel
 #define mtk9335isp_FULL_RESOLUTION  0x500000   		//5 megapixel
 #define gc2035_FULL_RESOLUTION      0x200000            // 2 megapixel
+#define gc2155_FULL_RESOLUTION      0x200000            // 2 megapixel
 #define hm2057_FULL_RESOLUTION      0x200000            // 2 megapixel
 #define hm5065_FULL_RESOLUTION      0x500000            // 5 megapixel
 #define nt99160_FULL_RESOLUTION     0x100000           // oyyf@rock-chips.com:  1 megapixel 1280*720    
@@ -187,6 +190,7 @@
 #define gc0329_I2C_ADDR             0x62           
 #define gc2015_I2C_ADDR             0x60
 #define gc2035_I2C_ADDR             0x78            
+#define gc2155_I2C_ADDR             0x78            
 
 #define siv120b_I2C_ADDR             INVALID_VALUE           
 #define siv121d_I2C_ADDR             INVALID_VALUE           
@@ -247,6 +251,7 @@
 #define gc0329_PWRDN_ACTIVE             0x01           
 #define gc2015_PWRDN_ACTIVE             0x01
 #define gc2035_PWRDN_ACTIVE             0x01            
+#define gc2155_PWRDN_ACTIVE             0x01            
 
 #define siv120b_PWRDN_ACTIVE             INVALID_VALUE           
 #define siv121d_PWRDN_ACTIVE             INVALID_VALUE           
@@ -319,6 +324,7 @@
 #define gc0329_PWRSEQ                   sensor_PWRSEQ_DEFAULT          
 #define gc2015_PWRSEQ                   sensor_PWRSEQ_DEFAULT
 #define gc2035_PWRSEQ                   sensor_PWRSEQ_DEFAULT            
+#define gc2155_PWRSEQ                   sensor_PWRSEQ_DEFAULT            
 
 #define siv120b_PWRSEQ                   sensor_PWRSEQ_DEFAULT         
 #define siv121d_PWRSEQ                   sensor_PWRSEQ_DEFAULT         
