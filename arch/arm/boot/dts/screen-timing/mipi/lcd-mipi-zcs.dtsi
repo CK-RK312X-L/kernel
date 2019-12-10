@@ -1,0 +1,216 @@
+/*
+ * Copyright (C) 2014 ROCKCHIP, Inc.
+ * Licensed under GPLv2 or later.
+ * arch/arm/boot/dts/lcd-b080xan03.0-mipi.dtsi
+ * author: chenyf@rock-chips.com
+ * create date: 2014-09-11
+ * lcd model: b080xan03.0
+ * resolution: 768 X 1024
+ * mipi channel: single
+ */
+#include "include/dt-bindings/rkmipi/mipi_dsi.h"
+/ {
+		/* about mipi */
+		disp_mipi_init: mipi_dsi_init{
+					compatible = "rockchip,mipi_dsi_init";
+					rockchip,screen_init	= <1>;
+					rockchip,dsi_lane		= <4>;
+					rockchip,dsi_hs_clk		= <528>;
+					rockchip,mipi_dsi_num	= <1>;
+		};
+		disp_mipi_power_ctr: mipi_power_ctr {
+					compatible = "rockchip,mipi_power_ctr";
+					mipi_lcd_rst:mipi_lcd_rst{
+							compatible = "rockchip,lcd_rst";
+							rockchip,gpios = <&gpio0 GPIO_D0 GPIO_ACTIVE_HIGH>;
+							rockchip,delay = <250>;
+					};
+					mipi_lcd_en:mipi_lcd_en {
+							compatible = "rockchip,lcd_en";
+							rockchip,gpios = <&gpio1 GPIO_B4 GPIO_ACTIVE_HIGH>;
+							rockchip,delay = <100>;
+					};
+		};
+
+		disp_mipi_init_cmds: screen-on-cmds {
+					compatible = "rockchip,screen-on-cmds";
+					rockchip,cmd_debug = <1>;
+					//CMD_Page 4
+					
+
+
+rockchip,on-cmds0 {
+		compatible = "rockchip,on-cmds";
+		rockchip,cmd_type = <LPDT>;
+		rockchip,dsi_id = <0>;
+		rockchip,cmd = <0x39 0xB9 0xF1 0x12 0x83>;
+		rockchip,cmd_delay = <2>;
+};
+rockchip,on-cmds1 {
+		compatible = "rockchip,on-cmds";
+		rockchip,cmd_type = <LPDT>;
+		rockchip,dsi_id = <0>;
+		rockchip,cmd = <0x39  0xBA 0x33 0x81 0x05 0xF9 0x0E 0x0E 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x44 0x25 0x00 0x91 0x0A 0x00 0x00 0x02 0x4F 0xD1 0x00 0x00 0x37>;
+		rockchip,cmd_delay = <2>;
+};
+rockchip,on-cmds2 {
+		compatible = "rockchip,on-cmds";
+		rockchip,cmd_type = <LPDT>;
+		rockchip,dsi_id = <0>;
+		rockchip,cmd = <0x39 0xB8 0x25 0x22>;
+		rockchip,cmd_delay = <2>;
+};
+rockchip,on-cmds3 {
+		compatible = "rockchip,on-cmds";
+		rockchip,cmd_type = <LPDT>;
+		rockchip,dsi_id = <0>;
+		rockchip,cmd = <0x39 0xBF 0x02  0x11 0x00>;
+		rockchip,cmd_delay = <2>;
+};
+rockchip,on-cmds4 {
+		compatible = "rockchip,on-cmds";
+		rockchip,cmd_type = <LPDT>;
+		rockchip,dsi_id = <0>;
+		rockchip,cmd = <0x39 0xB3 0x0C 0x10 0x0A 0x50 0x03 0xFF 0x00 0x00 0x00 0x00>;
+		rockchip,cmd_delay = <2>;
+};
+rockchip,on-cmds5 {
+		compatible = "rockchip,on-cmds";
+		rockchip,cmd_type = <LPDT>;
+		rockchip,dsi_id = <0>;
+		rockchip,cmd = <0x39 0xC0 0x73 0x73 0x50 0x50 0x00 0x00 0x08 0x70 0x00>;
+		rockchip,cmd_delay = <2>;
+};
+rockchip,on-cmds6 {
+		compatible = "rockchip,on-cmds";
+		rockchip,cmd_type = <LPDT>;
+		rockchip,dsi_id = <0>;
+		rockchip,cmd = <0x15 0xBC 0x46>;
+		rockchip,cmd_delay = <2>;
+};
+rockchip,on-cmds7 {
+		compatible = "rockchip,on-cmds";
+		rockchip,cmd_type = <LPDT>;
+		rockchip,dsi_id = <0>;
+		rockchip,cmd = <0x15 0xCC 0x0B>;
+		rockchip,cmd_delay = <2>;
+};
+rockchip,on-cmds8 {
+		compatible = "rockchip,on-cmds";
+		rockchip,cmd_type = <LPDT>;
+		rockchip,dsi_id = <0>;
+		rockchip,cmd = <0x15 0xB4 0x80>;
+		rockchip,cmd_delay = <2>;
+};
+rockchip,on-cmds9 {
+		compatible = "rockchip,on-cmds";
+		rockchip,cmd_type = <LPDT>;
+		rockchip,dsi_id = <0>;
+		rockchip,cmd = <0x39 0xB2 0xC8 0x12 0x30>;
+		rockchip,cmd_delay = <2>;
+};
+rockchip,on-cmds10 {
+		compatible = "rockchip,on-cmds";
+		rockchip,cmd_type = <LPDT>;
+		rockchip,dsi_id = <0>;
+		rockchip,cmd = <0x39 0xE3 0x07 0x07 0x0B 0x0B 0x03 0x0B 0x00 0x00 0x00 0x00 0xFF 0x80 0xC0 0x10>;
+		rockchip,cmd_delay = <2>;
+};
+rockchip,on-cmds11 {
+		compatible = "rockchip,on-cmds";
+		rockchip,cmd_type = <LPDT>;
+		rockchip,dsi_id = <0>;
+		rockchip,cmd = <0x39 0xC1 0x25 0x00 0x1E 0x1E 0x77 0xF1 0xFF 0xFF 0xCC 0xCC 0x77 0x77>;
+		rockchip,cmd_delay = <2>;
+};
+rockchip,on-cmds12 {
+		compatible = "rockchip,on-cmds";
+		rockchip,cmd_type = <LPDT>;
+		rockchip,dsi_id = <0>;
+		rockchip,cmd = <0x39 0xB5 0x0A 0x0A>;
+		rockchip,cmd_delay = <2>;
+};
+
+rockchip,on-cmds13 {
+		compatible = "rockchip,on-cmds";
+		rockchip,cmd_type = <LPDT>;
+		rockchip,dsi_id = <0>;
+		rockchip,cmd = <0x39 0xB6 0x50 0x50>;
+		rockchip,cmd_delay = <2>;
+};
+rockchip,on-cmds14 {
+		compatible = "rockchip,on-cmds";
+		rockchip,cmd_type = <LPDT>;
+		rockchip,dsi_id = <0>;
+		rockchip,cmd = <0x39 0xE9 0xC2 0x10 0x0F 0x00 0x00 0xB2 0xB8 0x12 0x31 0x23 0x48 0x8B 0xB2 0xB8 0x47 0x20 0x00 0x00 0x30 0x00 0x00 0x00 0x00 0x00 0x30 0x00 0x00 0x00 0x02 0x46 0x02 0x88 0x88 0x88 0x88 0x88 0x88 0x88 0xF8 0x13 0x57 0x13 0x88 0x88 0x88 0x88 0x88 0x88 0x88 0xF8 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00>;
+		rockchip,cmd_delay = <2>;
+};
+rockchip,on-cmds15 {
+		compatible = "rockchip,on-cmds";
+		rockchip,cmd_type = <LPDT>;
+		rockchip,dsi_id = <0>;
+		rockchip,cmd = <0x39 0xEA 0x00 0x1A 0x00 0x00 0x00 0x00 0x02 0x00 0x00 0x00 0x00 0x00 0x75 0x31 0x31 0x88 0x88 0x88 0x88 0x88 0x88 0x88 0x8F 0x64 0x20 0x20 0x88 0x88 0x88 0x88 0x88 0x88 0x88 0x8F 0x23 0x10 0x00 0x00 0x02 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00>;
+		rockchip,cmd_delay = <2>;
+};
+rockchip,on-cmds16 {
+		compatible = "rockchip,on-cmds";
+		rockchip,cmd_type = <LPDT>;
+		rockchip,dsi_id = <0>;
+		rockchip,cmd = <0x39 0xE0 0x00 0x02 0x01 0x36 0x38 0x3F 0x2E 0x28 0x07 0x08 0x0D 0x10 0x14 0x10 0x16 0x0E 0x0E 0x00 0x02 0x01 0x36 0x38 0x3F 0x2E 0x28 0x07 0x08 0x0D 0x10 0x14 0x10 0x16 0x0E 0x0E>;
+		rockchip,cmd_delay = <2>;
+};
+rockchip,on-cmds17 {
+		compatible = "rockchip,on-cmds";
+		rockchip,cmd_type = <LPDT>;
+		rockchip,dsi_id = <0>;
+		rockchip,cmd = <0x05 0x11>;
+		rockchip,cmd_delay = <100>;
+};
+rockchip,on-cmds18 {
+		compatible = "rockchip,on-cmds";
+		rockchip,cmd_type = <LPDT>;
+		rockchip,dsi_id = <0>;
+		rockchip,cmd = <0x05 0x29>;
+		rockchip,cmd_delay = <20>;
+};
+
+rockchip,on-cmds19 {
+		compatible = "rockchip,on-cmds";
+		rockchip,cmd_type = <LPDT>;
+		rockchip,dsi_id = <0>;
+		rockchip,cmd = <0x05 0x35>;
+		rockchip,cmd_delay = <20>;
+};
+
+					
+		};
+
+
+		disp_timings: display-timings {
+                        native-mode = <&timing0>;
+                        compatible = "rockchip,display-timings";
+                        timing0: timing0 {
+				screen-type = <SCREEN_MIPI>;
+				lvds-format = <LVDS_8BIT_1>;
+				out-face    = <OUT_P888>;
+				//color-mode = <COLOR_RGB>;
+				clock-frequency = <64500000>;//71000000
+				hactive = <720>;
+				vactive = <1280>;
+				hback-porch = <52>;//60
+				hfront-porch = <48>;//210
+				vback-porch = <15>;//16
+				vfront-porch = <16>;//22
+				hsync-len = <4>;//30
+				vsync-len = <3>;//2
+				hsync-active = <0>;
+				vsync-active = <0>;
+				de-active = <0>;
+				pixelclk-active = <0>;
+				swap-rb = <0>;
+				swap-rg = <0>;
+				swap-gb = <0>;
+                     	};
+               };
+};
+
