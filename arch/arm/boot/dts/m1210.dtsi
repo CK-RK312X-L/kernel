@@ -152,6 +152,18 @@
                 tp-size = <0>;
 		status = "okay";
         };
+
+	ts@12 {
+                compatible = "wacom_i2c";
+                reg = <0x12>;
+                irq_gpios = <&gpio1 GPIO_B0 IRQ_TYPE_LEVEL_LOW>;
+                reset_gpios = <&gpio0 GPIO_A2 GPIO_ACTIVE_LOW>;
+                max-x = <720>;
+                max-y = <1280>;
+                tp-size = <0>;
+                status = "okay";
+        };
+
 };
 
 #include "rk805.dtsi"
