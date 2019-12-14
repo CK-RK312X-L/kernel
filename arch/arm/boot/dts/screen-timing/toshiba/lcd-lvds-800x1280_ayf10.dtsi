@@ -14,7 +14,7 @@
 					compatible = "rockchip,mipi_dsi_init";
 					rockchip,screen_init	= <1>;
 					rockchip,dsi_lane		= <4>;
-					rockchip,dsi_hs_clk		= <650>;
+					rockchip,dsi_hs_clk		= <550>;
 					rockchip,mipi_dsi_num	= <1>;
 		};
 		disp_mipi_power_ctr: mipi_power_ctr {
@@ -413,12 +413,12 @@ rockchip,cmd_delay = <10>;
                                 hactive = <800>;                         /* Horizontal display area thd 1024       DCLK                   */
 			 	vactive = <1280>;                         /* Vertical display area tvd   600            H                        
        */
-				hback-porch = <10>;
+				hback-porch = <24>;
 				hsync-len = <10>;
-				hfront-porch = <60>;
-				vback-porch = <20>;
-				vfront-porch = <20>;
-				vsync-len = <5>;
+				hfront-porch = <72>;
+				vback-porch = <10>;
+				vfront-porch = <12>;
+				vsync-len = <10>;
 				hsync-active = <0>;
 				vsync-active = <0>;
 				de-active = <0>;
