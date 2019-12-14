@@ -35,6 +35,7 @@
 #include "f_midi.c"
 #include "f_mass_storage.c"
 #include "f_mtp.c"
+#include "f_hid.c"
 #include "f_accessory.c"
 #define USB_ETH_RNDIS y
 #include "f_rndis.c"
@@ -1001,6 +1002,160 @@ static struct device_attribute *midi_function_attributes[] = {
 	NULL
 };
 
+static struct hidg_func_descriptor ghid_data = {
+	.subclass = 1,
+	.protocol = 1,
+	.report_length = 64,
+	.report_desc_length = 150,
+	.report_desc = {
+#if 0
+		0x05, 0x01,
+		0x09, 0x06,
+		0xa1, 0x01,
+		0x05, 0x07,
+		0x19, 0xe0,
+		0x29, 0xe7,
+		0x15, 0x00,
+		0x25, 0x01,
+		0x75, 0x01,
+		0x95, 0x08,
+		0x81, 0x02,
+		0x95, 0x01,
+		0x75, 0x08,
+		0x81, 0x03,
+		0x95, 0x05,
+		0x75, 0x01,
+		0x05, 0x08,
+		0x19, 0x01,
+		0x29, 0x05,
+		0x91, 0x02,
+		0x95, 0x01,
+		0x75, 0x03,
+		0x91, 0x03,
+		0x95, 0x06,
+		0x75, 0x08,
+		0x15, 0x00,
+		0x25, 0x65,
+		0x05, 0x07,
+		0x19, 0x00,
+		0x29, 0x65,
+		0x81, 0x00,
+		0xc0
+#else
+				0x05, 0x01,	/*       USAGE_PAGE (Generic Desktop)         */
+			0x09, 0x06,	/*       USAGE (Keyboard)                     */
+			0xA1, 0x01,	/*       COLLECTION (Application)             */
+			0x85, 0x01,	/*   REPORT ID (0x01)                     */
+			0x05, 0x07,	/*   USAGE_PAGE (Keyboard)                */
+			0x19, 0xE0,	/*   USAGE_MINIMUM (Keyboard LeftControl) */
+			0x29, 0xE7,	/*   USAGE_MAXIMUM (Keyboard Right GUI)   */
+			0x15, 0x00,	/*   LOGICAL_MINIMUM (0)                  */
+			0x25, 0x01,	/*   LOGICAL_MAXIMUM (1)                  */
+			0x75, 0x01,	/*   REPORT_SIZE (1)                      */
+			0x95, 0x08,	/*   REPORT_COUNT (8)                     */
+			0x81, 0x02,	/*   INPUT (Data,Var,Abs)                 */
+			0x95, 0x01,	/*   REPORT_COUNT (1)                     */
+			0x75, 0x08,	/*   REPORT_SIZE (8)                      */
+			0x81, 0x03,	/*   INPUT (Cnst,Var,Abs)                 */
+			0x95, 0x05,	/*   REPORT_COUNT (5)                     */
+			0x75, 0x01,	/*   REPORT_SIZE (1)                      */
+			0x05, 0x08,	/*   USAGE_PAGE (LEDs)                    */
+			0x19, 0x01,	/*   USAGE_MINIMUM (Num Lock)             */
+			0x29, 0x05,	/*   USAGE_MAXIMUM (Kana)                 */
+			0x91, 0x02,	/*   OUTPUT (Data,Var,Abs)                */
+			0x95, 0x01,	/*   REPORT_COUNT (1)                     */
+			0x75, 0x03,	/*   REPORT_SIZE (3)                      */
+			0x91, 0x03,	/*   OUTPUT (Cnst,Var,Abs)                */
+			0x95, 0x06,	/*   REPORT_COUNT (6)                     */
+			0x75, 0x08,	/*   REPORT_SIZE (8)                      */
+			0x15, 0x00,	/*   LOGICAL_MINIMUM (0)                  */
+			0x25, 0x65,	/*   LOGICAL_MAXIMUM (101)                */
+			0x05, 0x07,	/*   USAGE_PAGE (Keyboard)                */
+			0x19, 0x00,	/*   USAGE_MINIMUM (Reserved)             */
+			0x29, 0x65,	/*   USAGE_MAXIMUM (Keyboard Application) */
+			0x81, 0x00,	/*   INPUT (Data,Ary,Abs)                 */
+			0xC0,	/*   END_COLLECTION                       */
+
+			0x05, 0x0C,	/*   USAGE_PAGE (consumer page)           */
+			0x09, 0x01,	/*   USAGE (consumer control)             */
+			0xA1, 0x01,	/*   COLLECTION (Application)             */
+			0x85, 0x03,	/*   REPORT ID (0x03)                     */
+			0x15, 0x00,	/*   LOGICAL_MINIMUM (0)                  */
+			0x26, 0xFF, 0x02,	/*  LOGICAL_MAXIMUM (0x2FF)         */
+			0x19, 0x00,	/*   USAGE_MINIMUM (00)                   */
+			0x2A, 0xFF, 0x02,	/*  USAGE_MAXIMUM (0x2FF)           */
+			0x75, 0x10,	/*   REPORT_SIZE (16)                     */
+			0x95, 0x01,	/*   REPORT_COUNT (1)                     */
+			0x81, 0x00,	/*   INPUT (Data,Ary,Abs)                 */
+			0xC0,
+
+			0x05, 0x01,	/*   USAGE_PAGE (Generic Desktop)         */
+			0x09, 0x02,	/*   USAGE (Mouse)                        */
+			0xA1, 0x01,	/*   COLLECTION (Application)             */
+			0x85, 0x02,	/*   REPORT ID (0x02)                 */
+			0x09, 0x01,	/*   USAGE (Pointer)                  */
+
+			0xA1, 0x00,	/*   COLLECTION (Application)         */
+			0x05, 0x09,	/*   USAGE_PAGE (Button)              */
+			0x19, 0x01,	/*   USAGE_MINIMUM (Button 1)         */
+			0x29, 0x08,	/*   USAGE_MAXIMUM (Button 8)         */
+			0x15, 0x00,	/*   LOGICAL_MINIMUM (0)              */
+			0x25, 0x01,	/*   LOGICAL_MAXIMUM (1)              */
+			0x75, 0x01,	/*   REPORT_SIZE (1)                  */
+			0x95, 0x08,	/*   REPORT_COUNT (8)                 */
+			0x81, 0x02,	/*   INPUT (Data,Var,Abs)             */
+			0x05, 0x01,	/*   USAGE_PAGE (Generic Desktop)     */
+			0x09, 0x30,	/*   USAGE (X)                        */
+			0x09, 0x31,	/*   USAGE (Y)                        */
+			0x16, 0x01, 0xF8,	/* LOGICAL_MINIMUM (-2047)          */
+			0x26, 0xFF, 0x07,	/* LOGICAL_MAXIMUM (2047)           */
+			0x75, 0x0C,	/*   REPORT_SIZE (12)                 */
+			0x95, 0x02,	/*   REPORT_COUNT (2)                 */
+			0x81, 0x06,	/*   INPUT (Data,Var,Rel)             */
+			0x09, 0x38,
+			0x15, 0x81,	/*   LOGICAL_MINIMUM (-127)           */
+			0x25, 0x7F,	/*   LOGICAL_MAXIMUM (127)            */
+			0x75, 0x08,	/*   REPORT_SIZE (8)                  */
+			0x95, 0x01,	/*   REPORT_COUNT (1)                 */
+			0x81, 0x06,	/*   INPUT (Data,Var,Rel)             */
+			0xC0,	/*   END_COLLECTION                   */
+
+			0xC0	/*   END_COLLECTION                       */
+#endif
+	}
+};
+static int hidg_function_init(struct android_usb_function *f,
+		struct usb_composite_dev *cdev)
+{
+	ghid_setup(cdev->gadget, 2);
+	return 0;
+}
+static void hidg_function_cleanup(struct android_usb_function *f)
+{
+	ghid_cleanup();
+	return;
+}
+static int hidg_function_bind_config(struct android_usb_function *f,
+		struct usb_configuration *c)
+{
+	if(ghid_data.report_desc_length)
+		hidg_bind_config(c, &ghid_data, 0);
+	return 0;
+}
+static void hidg_function_unbind_config(struct android_usb_function *f,struct usb_configuration *c)
+{
+	return;
+}
+static struct android_usb_function hidg_function = {
+	.name="hidg",
+	.init=hidg_function_init,
+	.cleanup=hidg_function_cleanup,
+	.bind_config=hidg_function_bind_config,
+	.unbind_config=hidg_function_unbind_config,
+};
+
+
+
 static struct android_usb_function midi_function = {
 	.name		= "midi",
 	.init		= midi_function_init,
@@ -1019,11 +1174,12 @@ static struct android_usb_function *supported_functions[] = {
 	&accessory_function,
 	&audio_source_function,
 	&midi_function,
+	&hidg_function,
 	NULL
 };
 
 static int android_init_functions(struct android_usb_function **functions,
-				  struct usb_composite_dev *cdev)
+		struct usb_composite_dev *cdev)
 {
 	struct android_dev *dev = _android_dev;
 	struct android_usb_function *f;
@@ -1038,7 +1194,7 @@ static int android_init_functions(struct android_usb_function **functions,
 				MKDEV(0, index), f, f->dev_name);
 		if (IS_ERR(f->dev)) {
 			pr_err("%s: Failed to create dev %s", __func__,
-							f->dev_name);
+					f->dev_name);
 			err = PTR_ERR(f->dev);
 			goto err_create;
 		}
@@ -1047,7 +1203,7 @@ static int android_init_functions(struct android_usb_function **functions,
 			err = f->init(f, cdev);
 			if (err) {
 				pr_err("%s: Failed to init %s", __func__,
-								f->name);
+						f->name);
 				goto err_out;
 			}
 		}
@@ -1089,9 +1245,9 @@ static void android_cleanup_functions(struct android_usb_function **functions)
 	}
 }
 
-static int
+	static int
 android_bind_enabled_functions(struct android_dev *dev,
-			       struct usb_configuration *c)
+		struct usb_configuration *c)
 {
 	struct android_usb_function *f;
 	int ret;
@@ -1106,9 +1262,9 @@ android_bind_enabled_functions(struct android_dev *dev,
 	return 0;
 }
 
-static void
+	static void
 android_unbind_enabled_functions(struct android_dev *dev,
-			       struct usb_configuration *c)
+		struct usb_configuration *c)
 {
 	struct android_usb_function *f;
 
@@ -1125,7 +1281,7 @@ static int android_enable_function(struct android_dev *dev, char *name)
 	while ((f = *functions++)) {
 		if (!strcmp(name, f->name)) {
 			list_add_tail(&f->enabled_list,
-						&dev->enabled_functions);
+					&dev->enabled_functions);
 			return 0;
 		}
 	}
@@ -1135,7 +1291,7 @@ static int android_enable_function(struct android_dev *dev, char *name)
 /*-------------------------------------------------------------------------*/
 /* /sys/class/android_usb/android%d/ interface */
 
-static ssize_t
+	static ssize_t
 functions_show(struct device *pdev, struct device_attribute *attr, char *buf)
 {
 	struct android_dev *dev = dev_get_drvdata(pdev);
@@ -1154,9 +1310,9 @@ functions_show(struct device *pdev, struct device_attribute *attr, char *buf)
 	return buff - buf;
 }
 
-static ssize_t
+	static ssize_t
 functions_store(struct device *pdev, struct device_attribute *attr,
-			       const char *buff, size_t size)
+		const char *buff, size_t size)
 {
 	struct android_dev *dev = dev_get_drvdata(pdev);
 	char *name;
@@ -1201,7 +1357,7 @@ functions_store(struct device *pdev, struct device_attribute *attr,
 			err = android_enable_function(dev, "ffs");
 			if (err)
 				pr_err("android_usb: Cannot enable ffs (%d)",
-									err);
+						err);
 			else
 				ffs_enabled = 1;
 			continue;
@@ -1210,7 +1366,7 @@ functions_store(struct device *pdev, struct device_attribute *attr,
 		err = android_enable_function(dev, name);
 		if (err)
 			pr_err("android_usb: Cannot enable '%s' (%d)",
-							   name, err);
+					name, err);
 	}
 
 	mutex_unlock(&dev->mutex);
@@ -1219,14 +1375,14 @@ functions_store(struct device *pdev, struct device_attribute *attr,
 }
 
 static ssize_t enable_show(struct device *pdev, struct device_attribute *attr,
-			   char *buf)
+		char *buf)
 {
 	struct android_dev *dev = dev_get_drvdata(pdev);
 	return sprintf(buf, "%d\n", dev->enabled);
 }
 
 static ssize_t enable_store(struct device *pdev, struct device_attribute *attr,
-			    const char *buff, size_t size)
+		const char *buff, size_t size)
 {
 	struct android_dev *dev = dev_get_drvdata(pdev);
 	struct usb_composite_dev *cdev = dev->cdev;
@@ -1274,7 +1430,7 @@ static ssize_t enable_store(struct device *pdev, struct device_attribute *attr,
 }
 
 static ssize_t state_show(struct device *pdev, struct device_attribute *attr,
-			   char *buf)
+		char *buf)
 {
 	struct android_dev *dev = dev_get_drvdata(pdev);
 	struct usb_composite_dev *cdev = dev->cdev;
@@ -1295,7 +1451,7 @@ out:
 }
 
 #define DESCRIPTOR_ATTR(field, format_string)				\
-static ssize_t								\
+	static ssize_t								\
 field ## _show(struct device *dev, struct device_attribute *attr,	\
 		char *buf)						\
 {									\
@@ -1315,7 +1471,7 @@ field ## _store(struct device *dev, struct device_attribute *attr,	\
 static DEVICE_ATTR(field, S_IRUGO | S_IWUSR, field ## _show, field ## _store);
 
 #define DESCRIPTOR_STRING_ATTR(field, buffer)				\
-static ssize_t								\
+	static ssize_t								\
 field ## _show(struct device *dev, struct device_attribute *attr,	\
 		char *buf)						\
 {									\
@@ -1326,7 +1482,7 @@ field ## _store(struct device *dev, struct device_attribute *attr,	\
 		const char *buf, size_t size)				\
 {									\
 	if (size >= sizeof(buffer))					\
-		return -EINVAL;						\
+	return -EINVAL;						\
 	return strlcpy(buffer, buf, sizeof(buffer));			\
 }									\
 static DEVICE_ATTR(field, S_IRUGO | S_IWUSR, field ## _show, field ## _store);
@@ -1337,13 +1493,13 @@ DESCRIPTOR_ATTR(idProduct, "%04x\n")
 DESCRIPTOR_ATTR(bcdDevice, "%04x\n")
 DESCRIPTOR_ATTR(bDeviceClass, "%d\n")
 DESCRIPTOR_ATTR(bDeviceSubClass, "%d\n")
-DESCRIPTOR_ATTR(bDeviceProtocol, "%d\n")
-DESCRIPTOR_STRING_ATTR(iManufacturer, manufacturer_string)
-DESCRIPTOR_STRING_ATTR(iProduct, product_string)
+	DESCRIPTOR_ATTR(bDeviceProtocol, "%d\n")
+	DESCRIPTOR_STRING_ATTR(iManufacturer, manufacturer_string)
+	DESCRIPTOR_STRING_ATTR(iProduct, product_string)
 DESCRIPTOR_STRING_ATTR(iSerial, serial_string)
 
-static DEVICE_ATTR(functions, S_IRUGO | S_IWUSR, functions_show,
-						 functions_store);
+	static DEVICE_ATTR(functions, S_IRUGO | S_IWUSR, functions_show,
+			functions_store);
 static DEVICE_ATTR(enable, S_IRUGO | S_IWUSR, enable_show, enable_store);
 static DEVICE_ATTR(state, S_IRUGO, state_show, NULL);
 
@@ -1449,7 +1605,7 @@ static int android_usb_unbind(struct usb_composite_dev *cdev)
 /* HACK: android needs to override setup for accessory to work */
 static int (*composite_setup_func)(struct usb_gadget *gadget, const struct usb_ctrlrequest *c);
 
-static int
+	static int
 android_setup(struct usb_gadget *gadget, const struct usb_ctrlrequest *c)
 {
 	struct android_dev		*dev = _android_dev;
@@ -1486,7 +1642,7 @@ android_setup(struct usb_gadget *gadget, const struct usb_ctrlrequest *c)
 		dev->connected = 1;
 		schedule_work(&dev->work);
 	} else if (c->bRequest == USB_REQ_SET_CONFIGURATION &&
-						cdev->config) {
+			cdev->config) {
 		schedule_work(&dev->work);
 	}
 	spin_unlock_irqrestore(&cdev->lock, flags);
@@ -1525,7 +1681,7 @@ static int android_create_device(struct android_dev *dev)
 	int err;
 
 	dev->dev = device_create(android_class, NULL,
-					MKDEV(0, 0), NULL, "android0");
+			MKDEV(0, 0), NULL, "android0");
 	if (IS_ERR(dev->dev))
 		return PTR_ERR(dev->dev);
 
