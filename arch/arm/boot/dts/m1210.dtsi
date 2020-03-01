@@ -67,6 +67,7 @@
 	key: key {
 		compatible = "rockchip,key";
 		io-channels = <&adc 1>;
+		ext_key = <&gpio3 GPIO_D2 GPIO_ACTIVE_HIGH>;
 
 		vol-up-key {
 			linux,code = <115>;

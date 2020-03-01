@@ -312,6 +312,160 @@ error_ret:
 	return ret;
 }
 
+
+int ext_key;
+int gpio_281_wd0;
+unsigned long long ir_pretime=0,ir_cur_time=0,data_time;
+ static  struct timeval  ts;
+ static int cnt=0;
+#define TIME_KEY_CALL 50000
+#define TIME_KEY_MEDICINE_MIN (4500-1000)
+#define TIME_KEY_MEDICINE_MAX (4500+1000)
+
+
+
+//#define KEY_PROG1		148
+//#define KEY_PROG2		149
+
+
+void rk_send_key(int key,int state)
+{// 148 
+	if (!sinput_dev)
+		return;
+
+
+	input_set_capability(sinput_dev, EV_KEY, key);
+	
+	if (state) {
+
+		printk("rk_send_key 1 \n");
+
+		input_event(sinput_dev, EV_KEY, key,1);
+		//input_report_key(sinput_dev, key, 1);
+		input_sync(sinput_dev);
+	} else {
+		printk("rk_send_key 0 \n");
+
+	  input_event(sinput_dev, EV_KEY, key,0);
+		//input_report_key(sinput_dev, key, 0);
+		input_sync(sinput_dev);
+	}
+}
+
+
+static irqreturn_t wd0_isr(int irq, void *dev_id)
+ {
+
+	 static int cnt=0;
+
+	 static long old_sec=0;
+
+		 
+
+
+	// printk("wd0_isr\n");
+
+	 disable_irq_nosync(irq); 
+
+
+	ir_pretime = ir_cur_time;
+do_gettimeofday(&ts);
+
+
+
+ir_cur_time=ts.tv_sec;
+
+ir_cur_time*=1000000;
+
+ir_cur_time+=ts.tv_usec;
+
+
+
+
+ //printk("sec==%d  usec=%d  ttt=%lld \n",ts.tv_sec,ts.tv_usec,ir_cur_time);
+ if(gpio_get_value(gpio_281_wd0)==1){
+ if (ir_cur_time && ir_pretime){
+ data_time=ir_cur_time - ir_pretime;
+
+ 
+
+	// printk("data_time=123=%lld \n",data_time);
+
+	 if(data_time<TIME_KEY_MEDICINE_MIN) {
+        //error
+        cnt=0;
+        
+	 }
+	 else  if(data_time>TIME_KEY_MEDICINE_MIN&&data_time<TIME_KEY_MEDICINE_MAX) {
+        //cnt
+        
+        cnt++;
+
+	//	printk("cnt==%d ",cnt);
+if(cnt>=5) {
+
+printk("key mmmm===\n");
+
+rk_send_key(KEY_PROG1,1); // 149
+ mdelay(1); 
+  rk_send_key(KEY_PROG1,0); // 149
+
+
+cnt=0;
+}
+	 }
+	 else if(data_time>TIME_KEY_CALL) {
+
+		printk("send call\n");
+
+         cnt=0;
+		 rk_send_key(KEY_PROG2,1); // 149
+		  mdelay(1); 
+		   rk_send_key(KEY_PROG2,0); // 149
+		 
+	 }
+	 
+		 
+ 	}
+ 	}
+
+	enable_irq(irq);
+ 
+	 return IRQ_HANDLED;
+ }
+
+
+
+
+void wd_init(int gpio){
+
+
+		gpio_281_wd0=  gpio;
+		
+	   if(gpio_281_wd0>0) {
+	
+	int irq;
+	irq = gpio_to_irq(gpio_281_wd0);
+	   if (irq < 0) {
+		   
+	   }
+	   else {
+	
+	   int irq_flag = IRQF_TRIGGER_RISING|IRQF_TRIGGER_FALLING |IRQF_ONESHOT;	   
+	   int error = request_threaded_irq(irq, NULL, wd0_isr, irq_flag, "wd0", NULL);
+	
+	   //ver_data=0;
+	
+	   if(error ==0) printk("irq wd0 oooooooooooooooooo\n");
+		   //ir_pretime = ir_cur_time=0;
+	
+		   }
+	   
+		   }
+	 
+}
+
+
 static int keys_probe(struct platform_device *pdev)
 {
 	struct device *dev = &pdev->dev;
@@ -320,6 +474,15 @@ static int keys_probe(struct platform_device *pdev)
 	struct input_dev *input = NULL;
 	int i, error = 0;
 	int wakeup, key_num = 0;
+
+
+	
+	ext_key= of_get_named_gpio_flags(np, "ext_key", 0, NULL);
+	
+	printk("ext_key===%d \n",ext_key);
+
+	if(ext_key>0) wd_init(ext_key);//gpio_direction_output(hub_power,0);
+
 
 	key_num = of_get_child_count(np);
 	if (key_num == 0)

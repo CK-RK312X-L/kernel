@@ -12,7 +12,8 @@
 //#include "lcd-mipi-800x1280-hx1004c.dtsi"
 //#include "lcd-box.dtsi"
 //#include "screen-timing/toshiba/lcd-lvds-800x1280_ayf10.dtsi"
-#include "screen-timing/mipi/lcd-mipi-zcs.dtsi"
+//#include "screen-timing/mipi/lcd-mipi-zcs.dtsi"
+#include "screen-timing/mipi/lcd-mipi-800x1280_ayf10_1.dtsi"
 
 / {
 	 compatible = "rockchip,rk3128";
@@ -256,6 +257,7 @@
 };
 
 &remotectl {
+	status = "disabled";
         handle_cpu_id = <1>;
 	ir_key2{
                 rockchip,usercode = <0xfe01>;
